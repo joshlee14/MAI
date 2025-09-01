@@ -1,0 +1,4 @@
+FIRST TO RUN 
+D:
+cd "PROJECT ICARUS 2\backend"
+node app.js

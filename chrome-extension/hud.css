@@ -1,0 +1,138 @@
+/*
+ * hud.css
+ *
+ * Minimal styling for the MAI HUD shell.  This stylesheet defines
+ * the dark-themed panel appearance, header, tab controls, body area,
+ * and resizer handle.  All styles are scoped within a Shadow DOM
+ * host, so they do not leak into the host page.  Colors are chosen
+ * for high contrast and subtlety, using Tailwind-inspired palette
+ * names for guidance.  Additional classes and refinements can be
+ * added in future patches when more functionality is introduced.
+ */
+
+:host, :root {
+  all: initial;
+}
+
+.maihud {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 360px;
+  height: 540px;
+  background: #0f172a; /* slate-900 */
+  color: #e2e8f0;      /* slate-200 */
+  border: 1px solid #334155; /* slate-700 */
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+  z-index: 2147483647;
+  /* Remove pointer events on top-level to allow dragging/resizing to work
+     properly when the HUD is collapsed.  Child elements re-enable
+     pointer events. */
+}
+
+.maihud * {
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.maihud-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #111827; /* gray-900 */
+  border-bottom: 1px solid #374151; /* gray-700 */
+  cursor: move;
+  user-select: none;
+}
+
+.maihud-header img {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.maihud-title {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.maihud-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.maihud-btn {
+  background: #1f2937; /* gray-800 */
+  border: 1px solid #374151; /* gray-700 */
+  color: #d1d5db; /* gray-300 */
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  user-select: none;
+}
+
+.maihud-btn:hover {
+  background: #111827; /* gray-900 */
+}
+
+.maihud-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-bottom: 1px solid #334155; /* slate-700 */
+}
+
+.maihud-tab {
+  padding: 6px 10px;
+  background: #0b1220; /* slightly lighter background */
+  border: 1px solid #334155;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #e2e8f0;
+  user-select: none;
+}
+
+.maihud-tab.active {
+  background: #1d283a; /* deeper background for active tab */
+  color: #ffffff;
+}
+
+.maihud-body {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+}
+
+.placeholder {
+  padding: 8px;
+  background: #0b1220;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.resizer {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  right: 2px;
+  bottom: 2px;
+  cursor: nwse-resize;
+  background: linear-gradient(135deg, transparent 50%, #475569 50%);
+  border-radius: 3px;
+}
+
+/* Collapsed state: hide tabs and body but keep header visible */
+.collapsed .maihud-tabs,
+.collapsed .maihud-body {
+  display: none;
+}
